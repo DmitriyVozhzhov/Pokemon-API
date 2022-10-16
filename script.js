@@ -2,17 +2,26 @@ console.log("JavaScript is ready to run");
 
 document.querySelector('#search').addEventListener('click', getPokemon);
 
+function capitalizedFirstLetter(string){
+	return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+function lowerCaseName(string){
+	return string.toLowerCase();
+}
+
+
 function getPokemon(e) {
 	const name = document.querySelector('#pokemonName').value ;
+	const pokemonName = lowerCaseName(name)
 
-
-	fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then((response) => response.json()).then(data => {
+	fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then((response) => response.json()).then(data => {
 		document.querySelector('.pokemonBox').innerHTML = `
 		<div>
 		<img src="${data.sprites.other['official-artwork'].front_default}" alt="${data.name}">
 	</div>
 	<div class="pokemonInfo">
-		<h1>${data.name}</h1>
+		<h1>${capitalizedFirstLetter(data.name)}</h1>
 		<p>Weight: ${data.weight}</p>
 		<p>Height: ${data.height}</p>
 		<p>ID: ${data.id}</p>
